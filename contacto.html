@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contacto | Sosa & Bogado</title>
+  <meta name="description" content="Formulario de contacto institucional del estudio jurídico Sosa & Bogado.">
+  <meta name="author" content="Sosa & Bogado">
+  <link rel="stylesheet" href="/css/contacto.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <div class="container header-content">
+      <a href="index.html" class="logo" aria-label="Ir al inicio">
+        <img src="/img/logososabogado.png" alt="Logo Sosa & Bogado" class="logo-header">
+        <div class="nombre">
+          <h1>Sosa & Bogado</h1>
+          <p>Estudio Jurídico</p>
+        </div>
+      </a>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="contacto.html" aria-current="page">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="formulario-contacto">
+    <div class="container">
+      <h2>Contacto</h2>
+      <p style="text-align: center;">Completá el formulario y nos pondremos en contacto a la brevedad.</p>
+
+      <form action="#" method="post" novalidate aria-labelledby="form-title">
+        <fieldset>
+          <legend id="form-title">Formulario de contacto</legend>
+
+          <div class="campo">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" required aria-required="true" autocomplete="name" placeholder="Ej. Juan Pérez">
+          </div>
+
+          <div class="campo">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" required aria-required="true" autocomplete="email" placeholder="Ej. juan@email.com">
+          </div>
+
+          <div class="campo">
+            <label for="telefono">Teléfono</label>
+            <input type="tel" id="telefono" name="telefono" autocomplete="tel" placeholder="Ej. +54 376 4000000">
+          </div>
+
+          <div class="campo">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="5" required aria-required="true" placeholder="Escribí tu consulta aquí..."></textarea>
+          </div>
+
+          <button type="submit" class="btn">Enviar por WhatsApp</button>
+        </fieldset>
+      </form>
+
+      <div id="form-feedback" role="alert" aria-live="polite" style="margin-top: 1rem;"></div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-links">
+        <h4>Estudio</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contacto">
+        <h4>Contacto</h4>
+        <p>Posadas, Misiones, Argentina</p>
+        <p>Tel: <a href="tel:+543764000000">+54 376 4000000</a></p>
+        <p>Email: <a href="mailto:contacto@sosaybogado.com">contacto@sosaybogado.com</a></p>
+      </div>
+
+      <div class="redes">
+        <h4>Redes</h4>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </div>
+
+      <div class="footer-logo">
+        <img src="/img/classicshieldlogo2.png" alt="Logo Sosa & Bogado" class="logo-footer">
+      </div>
+    </div>
+  </footer>
+<script>
+  // --- ENVÍO A WHATSAPP ---
+  const form = document.querySelector('form'); // O usá document.getElementById('contactForm') si tenés un ID específico
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const nombre = document.getElementById("nombre").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const telefono = document.getElementById("telefono").value.trim();
+    const mensaje = document.getElementById("mensaje").value.trim();
+    const feedback = document.getElementById('form-feedback');
+
+    // Validación básica
+    if (!nombre || !email || !mensaje) {
+      feedback.textContent = 'Por favor completá los campos obligatorios.';
+      feedback.style.color = '#e63946';
+      return;
+    }
+
+    // Construcción del mensaje
+    let texto = `Hola, soy ${nombre} (${email}`;
+    if (telefono) {
+      texto += `, tel: ${telefono}`;
+    }
+    texto += `). Mi mensaje: ${mensaje}`;
+
+    const url = "https://wa.me/543765033463?text=" + encodeURIComponent(texto);
+
+    // Mostrar mensaje de éxito
+    feedback.textContent = 'Redirigiendo a WhatsApp...';
+    feedback.style.color = '#2a9d8f';
+
+    // Abrir WhatsApp con un pequeño delay
+    setTimeout(function () {
+      window.open(url, "_blank");
+      form.reset();
+      feedback.textContent = '';
+    }, 800);
+  });
+  // --- FIN ENVÍO A WHATSAPP ---
+</script></body>
+</html>
